@@ -1,7 +1,16 @@
 import React from 'react'
+import { useActions } from '../hooks/actions'
 import { IRepo } from '../pages/models/models'
 
 export const ReposCard = ({ repo }: { repo: IRepo }) => {
+
+   const {addFavourite} = useActions();
+
+   const addToFavourite = (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+      addFavourite(repo.html_url);
+   }
+
    return (
       <div className='border py-3 px-5 rounded mb-2
       hover:shadow-md hover:bg--gray-100 transition-all'>
@@ -20,7 +29,12 @@ export const ReposCard = ({ repo }: { repo: IRepo }) => {
                </span>
             </p>
             <p className='text-sm font-thin '>{repo?.description}</p>
-
+         <button 
+            className='py-2 px-4 bg-yellow-400 rounded
+            hover:shadow-md transition-all '
+            onClick={addToFavourite}>
+               Add
+         </button>
          </a>
       </div>
    )
